@@ -36,6 +36,8 @@ chmod +x download_resources.sh
 ./download_resources.sh
 ```
 ## Run Server
+Open a new terminal and follow these steps:
+
 ```sh
 # Navigate to the project directory
 cd Hailo-Web-App
