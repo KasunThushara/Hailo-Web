@@ -34,3 +34,34 @@ chmod +x download_resources.sh
 
 # Run the resource download script
 ./download_resources.sh
+```
+## Run Server
+```sh
+# Navigate to the project directory
+cd Hailo-Web-App
+
+# Activate the virtual environment (if not already activated)
+source env/bin/activate
+
+# Navigate to the repository
+cd Hailo-Web
+
+# Start the server
+python3 server.py
+
+```
+
+Once the server is running, open a web browser and enter the following in the address bar:
+
+```sh
+http://<pi-ip-address>:5000
+```
+This will allow you to access the inference interface.
+
+## Project Inspiration
+This project is inspired by the [Hailo AI Application Code Examples](https://github.com/hailo-ai/Hailo-Application-Code-Examples/tree/main/runtime/python).
+
+
+
+
+
