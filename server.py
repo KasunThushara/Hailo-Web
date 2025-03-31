@@ -54,10 +54,10 @@ def run_detection(model_path, input_source, label_path):
     global detection_process, stream_active
     
     # Change directory and activate virtual environment
-    base_cmd = "cd /home/pi/Hailo-Application-Code-Examples/runtime/python/object_detection && "
-    base_cmd += "cd flask_env && "
+    base_cmd = "cd /home/pi/Hailo-Web-App && "
     base_cmd += "source env/bin/activate && "
-    base_cmd += "cd .. && "
+    base_cmd += "cd Hailo-Web && "
+    
     
     # Build the detection command
     if input_source.lower() == 'camera':
