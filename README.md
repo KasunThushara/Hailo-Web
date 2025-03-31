@@ -1,2 +1,36 @@
 # Hailo-Web
-with Hailo 8L Web App for interact with HEF models 
+
+
+Hailo-Web-App is a web-based application designed for running inference using Hailo AI models. This guide provides step-by-step instructions on setting up and running the application.
+
+## Preparation
+
+Follow these steps to set up the environment and install dependencies:
+
+```sh
+# Create a new directory for the project
+mkdir Hailo-Web-App
+
+# Navigate to the project directory
+cd Hailo-Web-App
+
+# Create a virtual environment with system site packages
+python -m venv --system-site-packages env
+
+# Activate the virtual environment
+source env/bin/activate
+
+# Clone the repository
+git clone https://github.com/KasunThushara/Hailo-Web.git
+
+# Navigate to the cloned repository
+cd Hailo-Web
+
+# Install required Python dependencies
+pip install -r requirements.txt
+
+# Grant execution permission to the resource download script
+chmod +x download_resources.sh
+
+# Run the resource download script
+./download_resources.sh
