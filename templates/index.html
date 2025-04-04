@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}AI Vision System{% endblock %}
+
+{% block content %}
+    <h1>Select Processing Mode</h1>
+    <div class="mode-selector">
+        <form action="/setup" method="GET">
+            <input type="hidden" name="mode" value="object">
+            <button class="btn btn-primary" type="submit">Object Detection</button>
+        </form>
+        <form action="/setup" method="GET">
+            <input type="hidden" name="mode" value="pose">
+            <button class="btn btn-primary" type="submit">Pose Estimation</button>
+        </form>
+    </div>
+{% endblock %}
