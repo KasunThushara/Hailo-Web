@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ mode_title }}{% endblock %}
+
+{% block content %}
+    <h1>Live {{ mode_title }}</h1>
+    <img id="video-feed" src="/video_feed">
+    <form action="/stop" method="POST">
+        <button class="btn btn-danger" type="submit">Stop {{ mode_title }}</button>
+    </form>
+{% endblock %}

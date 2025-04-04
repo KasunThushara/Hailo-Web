@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Pose Estimation Setup{% endblock %}
+
+{% block content %}
+    <h1>Pose Estimation Setup</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="model">HEF Model File:</label>
+            <input type="file" id="model" name="model" accept=".hef" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Input Source:</label>
+            <div>
+                <input type="radio" id="camera" name="input_type" value="camera" checked>
+                <label for="camera" style="display: inline;">Camera</label>
+            </div>
+            <div>
+                <input type="radio" id="mp4" name="input_type" value="mp4">
+                <label for="mp4" style="display: inline;">MP4 File</label>
+            </div>
+        </div>
+        
+        <div class="form-group" id="mp4-file-group" style="display:none;">
+            <label for="mp4_file">MP4 File:</label>
+            <input type="file" id="mp4_file" name="mp4_file" accept=".mp4">
+        </div>
+        
+        <button class="btn btn-danger" type="submit" name="back" value="true">Back</button>
+        <button class="btn btn-primary" type="submit">Start Pose Estimation</button>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.querySelectorAll('input[name="input_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('mp4-file-group').style.display = 
+                    this.value === 'mp4' ? 'block' : 'none';
+            });
+        });
+    </script>
+{% endblock %}
