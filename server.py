@@ -59,7 +59,13 @@ def run_detection(model_path, input_source, label_path):
     global current_process
     
     # Change directory and activate virtual environment
-    base_cmd = "cd /home/pi/Hailo-Web-App && "
+    home_dir = os.path.expanduser("~")
+    app_dir = os.path.join(home_dir, "Hailo-Web-App")
+    
+    if not os.path.exists(app_dir):
+        raise FileNotFoundError(f"Directory not found: {app_dir}")
+    
+    base_cmd = f"cd {app_dir} && "
     base_cmd += "source env/bin/activate && "
     base_cmd += "cd Hailo-Web && "
     
@@ -82,7 +88,13 @@ def run_pose_estimation(model_path, input_source):
     global current_process
     
     # Change directory and activate virtual environment
-    base_cmd = "cd /home/pi/Hailo-Web-App && "
+    home_dir = os.path.expanduser("~")
+    app_dir = os.path.join(home_dir, "Hailo-Web-App")
+    
+    if not os.path.exists(app_dir):
+        raise FileNotFoundError(f"Directory not found: {app_dir}")
+    
+    base_cmd = f"cd {app_dir} && "
     base_cmd += "source env/bin/activate && "
     base_cmd += "cd Hailo-Web && "
     
