@@ -13,6 +13,7 @@ from typing import List
 from object_detection_utils import ObjectDetectionUtils
 import socket
 import pickle
+import time
 
 # Add the parent directory to the system path to access utils module
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -152,6 +153,7 @@ def preprocess_images(images: List[np.ndarray], batch_size: int, input_queue: qu
         input_tuple = ([image for image in batch], [utils.preprocess(image, width, height) for image in batch])
         input_queue.put(input_tuple)
 
+
 def postprocess(
     output_queue: queue.Queue,
     cap: cv2.VideoCapture,
@@ -160,6 +162,10 @@ def postprocess(
     """
     Process and print the output results to console.
     """
+    # Initialize FPS variables
+    prev_time = 0
+    curr_time = 0
+    
     while True:
         result = output_queue.get()
         if result is None:
@@ -167,22 +173,30 @@ def postprocess(
 
         original_frame, infer_results = result
 
+        # Calculate FPS
+        curr_time = time.time()
+        fps = 1 / (curr_time - prev_time)
+        prev_time = curr_time
+
         # Deals with the expanded results from hailort versions < 4.19.0
         if len(infer_results) == 1:
             infer_results = infer_results[0]
 
         detections = utils.extract_detections(infer_results)
 
-        # Simply call draw_detections which prints to console
-        # We ignore the returned image since we don't need visual output
-        frame_with_detections=utils.draw_detections(detections, original_frame)
+        # Draw detections
+        frame_with_detections = utils.draw_detections(detections, original_frame)
+        
+        # Display FPS on frame
+        cv2.putText(frame_with_detections, f"FPS: {int(fps)}", (10, 30), 
+                   cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        
+        # Send frame over socket
         ret, buffer = cv2.imencode(".jpg", frame_with_detections, [int(cv2.IMWRITE_JPEG_QUALITY), 50])
         data = pickle.dumps(buffer)
         client_socket.sendto(data, address)
         
-
     output_queue.task_done()  # Indicate that processing is complete
-
 
 def infer(
     input,
